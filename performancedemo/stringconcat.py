@@ -1,26 +1,24 @@
 import cProfile
-import timeit
 
 
 a = ['x' for i in range(10000000)]
 
 
-def fast_concat():
-    r = ''.join(a)
-
-
-def slow_concat():
+def slow():
     r = ''
     for x in a:
         r += x
 
 
-print('Fast Concat:')
-print('############')
-timeit.timeit(setup='from __main__ import fast_concat', stmt='fast_concat()')
-cProfile.run('fast_concat()')
+def fast():
+    r = ''.join(a)
 
-print('Slow Concat:')
+
+print('Using +')
 print('############')
-timeit.timeit(setup='from __main__ import slow_concat', stmt='slow_concat()')
-cProfile.run('slow_concat()')
+cProfile.run('slow()')
+
+
+print('Using .join()')
+print('############')
+cProfile.run('fast()')
